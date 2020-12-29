@@ -1,0 +1,119 @@
+$background-color-desktop: $white !default;
+$background-color-tablet: $white !default;
+$background-color-mobile: $white !default;
+
+$fixed-desktop: True !default;
+$fixed-tablet: True !default;
+$fixed-mobile: True !default;
+
+$height-desktop: 250px !default;
+$height-tablet:  200px !default;
+$height-mobile:  100px !default; 
+
+$position-desktop: bottom !default;
+$position-tablet:  bottom !default; 
+$position-mobile:  bottom !default;
+
+$expand-symbol: '+' !default;
+$contract-symbol: '-' !default;
+
+.isi {
+    @include make-container();
+    background-color: $background-color-mobile;
+    left: 0;
+    
+    @if $fixed-mobile {
+        position: fixed;
+        
+        @if $position-mobile == bottom {
+            bottom: 0;
+        }
+
+        @if $position-mobile == top {
+            top: 0;
+        }
+    }
+       
+    .wrapper {
+        position: relative;
+        
+        label[for=isi-control] {
+            font-size: 0;
+        } 
+
+        .scroller {
+            @include make-col(12);
+            max-height: $height-mobile;
+            overflow-y: scroll;
+            transition: 0.4s ease-in-out max-height;
+        }
+    }
+
+    @include breakpoint('medium') {
+        background-color: $background-color-tablet;
+        
+        @if $fixed-tablet {
+            position: fixed;
+        } @else {
+            position: static;
+        }
+            
+        @if $position-tablet == bottom {
+            bottom: 0;
+        }
+
+        @if $position-tablet == top {
+            top: 0;
+        } 
+
+        .scroller {
+            max-height: $height-tablet;
+        }
+    }
+
+    @include breakpoint('large') {
+        background-color: $background-color-desktop;
+
+        @if $fixed-desktop {
+            position: fixed;
+
+            @if $position-desktop == bottom {
+                bottom: 0;
+            }
+
+            @if $position-desktop == top {
+                top: 0;
+            }
+        }
+
+        .scroller {
+            max-height: $height-desktop;
+        }
+    }
+}
+
+.isi-control {
+    appearance: none;
+    position: absolute;
+    right: $desktop-padding;
+    top: $desktop-padding;
+
+    @include breakpoint('large') {
+        // Account for scroll bar
+        right: calc(#{$desktop-padding} + 15px);
+    }
+
+    &:before {
+        content: $expand-symbol;
+    }
+
+    &:checked { 
+        &:before {
+            content: $contract-symbol;
+        }
+
+        + .scroller {
+            max-height: calc(100vh - 15px);
+        }
+    }
+}
