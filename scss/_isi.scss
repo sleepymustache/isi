@@ -14,8 +14,8 @@ $position-desktop: bottom !default;
 $position-tablet:  bottom !default; 
 $position-mobile:  bottom !default;
 
-$expand-symbol: '+' !default;
-$contract-symbol: '-' !default;
+$expand-symbol: "+" !default;
+$contract-symbol: "-" !default;
 
 .isi {
     @include make-container();
@@ -49,7 +49,7 @@ $contract-symbol: '-' !default;
         }
     }
 
-    @include breakpoint('medium') {
+    @include breakpoint("medium") {
         background-color: $background-color-tablet;
         
         @if $fixed-tablet {
@@ -71,7 +71,7 @@ $contract-symbol: '-' !default;
         }
     }
 
-    @include breakpoint('large') {
+    @include breakpoint("large") {
         background-color: $background-color-desktop;
 
         @if $fixed-desktop {
@@ -98,7 +98,7 @@ $contract-symbol: '-' !default;
     right: $desktop-padding;
     top: $desktop-padding;
 
-    @include breakpoint('large') {
+    @include breakpoint("large") {
         // Account for scroll bar
         right: calc(#{$desktop-padding} + 15px);
     }
